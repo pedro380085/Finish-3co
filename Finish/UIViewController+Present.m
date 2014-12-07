@@ -17,7 +17,7 @@
 
 - (BOOL)verifyDemo {
         
-    if (YES || ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunchedOnce"]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunchedOnce"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunchedOnce"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -44,24 +44,31 @@
     
     // See if demo has been presented
     [self verifyDemo];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"providedLoginOnce"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"providedLoginOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 
-    SocialLoginViewController *slvc = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
-    UINavigationController *nslvc = [[UINavigationController alloc] initWithRootViewController:slvc];
+        SocialLoginViewController *slvc = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
+        UINavigationController *nslvc = [[UINavigationController alloc] initWithRootViewController:slvc];
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            nslvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            nslvc.modalPresentationStyle = UIModalPresentationCurrentContext;
+        } else {
+            nslvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            nslvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
+        
+        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:nslvc animated:YES completion:^{
+            // Notify human controller and reload UI
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"personNotification" object:nil];
+        }];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        nslvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        nslvc.modalPresentationStyle = UIModalPresentationCurrentContext;
+        return YES;
     } else {
-        nslvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        nslvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        return NO;
     }
-    
-    [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:nslvc animated:YES completion:^{
-        // Notify human controller and reload UI
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"personNotification" object:nil];
-    }];
-    
-    return NO;
 }
 
 @end

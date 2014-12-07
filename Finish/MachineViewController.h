@@ -11,6 +11,7 @@
 @interface MachineViewController : WrapperViewController
 
 @property (strong, nonatomic) IBOutlet UIScrollView *view;
+
 @property (strong, nonatomic) IBOutlet UILabel *machine6;
 @property (strong, nonatomic) IBOutlet UILabel *machine8;
 @property (strong, nonatomic) IBOutlet UILabel *machine12;

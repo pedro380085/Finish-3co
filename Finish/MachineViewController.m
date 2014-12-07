@@ -61,8 +61,20 @@
     [self.navigationController pushViewController:[[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil] animated:YES];
 }
 
-
-- (IBAction)<#selector#>:(id)sender {
+- (IBAction)openBrowser:(UIButton *)sender {
+    
+    NSURL *url;
+    
+    if (sender.tag == 0) {
+        url = [NSURL URLWithString:@"http://lavaloucas.com.br/brastemp-clean-6-servicos"];
+    } else if (sender.tag == 1) {
+        url = [NSURL URLWithString:@"http://lavaloucas.com.br/brastemp-ative-8-servicos"];
+    } else if (sender.tag == 2) {
+        url = [NSURL URLWithString:@"http://lavaloucas.com.br/brastemp-ative-12-servicos"];
+    } else if (sender.tag == 3) {
+        url = [NSURL URLWithString:@"http://lavaloucas.com.br/brastemp-gourmand-14-servicos"];
+    }
+    
     UIViewController *viewController = [[UIViewController alloc] init];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [webView setScalesPageToFit:YES];

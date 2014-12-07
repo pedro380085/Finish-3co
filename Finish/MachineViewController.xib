@@ -43,6 +43,9 @@
                     <state key="normal" title="Comprar!">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="openBrowser:" destination="-1" eventType="touchUpInside" id="ahF-Et-WVn"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="GwU-0S-68C">
                     <rect key="frame" x="137" y="144" width="183" height="1"/>
@@ -74,6 +77,9 @@
                     <state key="normal" title="Comprar!">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="openBrowser:" destination="-1" eventType="touchUpInside" id="oaF-U4-3fk"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="KxM-X3-Q7e">
                     <rect key="frame" x="137" y="289" width="183" height="1"/>
@@ -136,6 +142,9 @@
                     <state key="normal" title="Comprar!">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="openBrowser:" destination="-1" eventType="touchUpInside" id="0cX-zX-VoV"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="YPV-AS-AYB">
                     <rect key="frame" x="144" y="579" width="183" height="1"/>
@@ -174,7 +183,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="401" y="186.5"/>
+            <point key="canvasLocation" x="374" y="186.5"/>
         </scrollView>
     </objects>
     <resources>
