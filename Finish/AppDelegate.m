@@ -1,12 +1,14 @@
 //
 //  AppDelegate.m
-//  Finish
+//  finish
 //
 //  Created by Pedro Góes on 07/12/14.
 //  Copyright (c) 2014 Estúdio Trilha. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "ColorThemeController.h"
+#import "UIImage+Color.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Create components
+    [self createCustomAppearance];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
     return YES;
 }
 
@@ -40,6 +48,51 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)createCustomAppearance {
+    
+    // ----------------------
+    // UIPopover
+    // ----------------------
+    UIImage *defaultImage = [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:defaultImage forBarMetrics:UIBarMetricsDefault];
+    
+    // ----------------------
+    // UIToolbar
+    // ----------------------
+    [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] imageWithColor:[ColorThemeController navigationBarBackgroundColor]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    // ----------------------
+    // UINavigationBar
+    // ----------------------
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        [[UINavigationBar appearance] setBarTintColor:[ColorThemeController navigationBarBackgroundColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [ColorThemeController navigationBarTextColor]}];
+    }
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] imageWithColor:[ColorThemeController navigationBarBackgroundColor]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsDefault];
+    
+    // ----------------------
+    // UIBarButtonItem
+    // ----------------------
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [ColorThemeController navigationBarTextColor]} forState:UIControlStateNormal];
+        [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [ColorThemeController navigationItemTextColor]} forState:UIControlStateDisabled];
+        
+    } else {
+        UIImage *backButton = [[UIImage imageNamed:@"barButtonBack.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 5)];
+        UIImage *barButton = [[UIImage imageNamed:@"barButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundImage:barButton forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackgroundVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    // ----------------------
+    // UITabBarItem
+    // ----------------------
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorThemeController tabBarItemTextColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0.0f, -2.0f)];
 }
 
 @end
