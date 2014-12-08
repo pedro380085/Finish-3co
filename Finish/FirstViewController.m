@@ -21,9 +21,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-    // Event Session
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"verify" object:nil userInfo:@{@"type": @"person"}];
 }
 
 - (void)didReceiveMemoryWarning {
